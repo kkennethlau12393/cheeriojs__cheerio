@@ -182,10 +182,9 @@ function _matchUntil(
       const matched: Element[] = [];
 
       domEach(elems, (elem) => {
-        let i = 0;
-        for (let next; (next = nextElem(elem)); elem = next, i++) {
-          // FIXME: `matched` might still contain duplicates across starting elements.
-          if (matches?.(next, i)) break;
+        for (let next; (next = nextElem(elem)); elem = next) {
+          // FIXME: `matched` might contain duplicates here and the index is too large.
+          if (matches?.(next, matched.length)) break;
           matched.push(next);
         }
       });
